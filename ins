@@ -1,0 +1,100 @@
+#! /bin/bash
+
+#
+# ins utilities
+#
+
+install() {
+    yay -Q "${1}" &>/dev/null || yay -S "${1}"
+}
+
+create_dir() {
+	[ ! -d "${1}" ] && mkdir "${1}"
+}
+
+sudo_create_dir() {
+	[ ! -d "${1}" ] && sudo mkdir "${1}"
+}
+
+backup_file() {
+	if [ -f "${1}" ] && [ ! -L "${1}" ]; then
+		mkdir -p "${PWD}/backups/$(dirname ${1})"
+		mv "${1}" "${PWD}/backups/$(dirname ${1})/$(basename ${1}).$(date +%s)"
+		rm "${1}"
+	fi
+
+	if [ -f "${1}" ] && [ -L "${1}" ]; then
+		unlink "${1}"
+	fi
+}
+
+sudo_backup_file() {
+	if [ -f "${1}" ] && [ ! -L "${1}" ]; then
+		mkdir -p "${PWD}/backups/$(dirname ${1})"
+		sudo mv "${1}" "${PWD}/backups/$(dirname ${1})/$(basename ${1}).$(date +%s)"
+		sudo rm "${1}"
+	fi
+
+	if [ -f "${1}" ] && [ -L "${1}" ]; then
+		sudo unlink "${1}"
+	fi
+}
+
+#
+# System
+#
+
+install "greetd-tuigreet"
+sudo_create_dir "/etc/greetd"
+sudo_backup_file "/etc/greetd/config.toml"
+sudo ln -s ${PWD}/etc/greetd/config.toml /etc/greetd/config.toml
+
+install "tofi"
+create_dir "${HOME}/.config/tofi"
+backup_file "${HOME}/.config/tofi/config"
+ln -s "${PWD}/home/${USER}/.config/tofi/config" "${HOME}/.config/tofi/config"
+
+install "kitty"
+create_dir "${HOME}/.config/kitty"
+backup_file "${HOME}/.config/kitty/kitty.conf"
+backup_file "${HOME}/.config/kitty/dracula.conf"
+ln -s "${PWD}/home/${USER}/.config/kitty/kitty.conf" "${HOME}/.config/kitty/kitty.conf"
+ln -s "${PWD}/home/${USER}/.config/kitty/dracula.conf" "${HOME}/.config/kitty/dracula.conf"
+
+# yay -S hyprland
+# # ~/.config/hypr/hyprland.conf
+#
+# yay -S hyprpaper
+# # ~/.config/tofi/config
+#
+# yay -S tofi
+# # ~/.config/tofi/config
+#
+#
+
+#
+# Terminal
+#
+#
+# yay -S otf-hasklig-nerd
+#
+#
+# yay -S fish
+# # copy configuration file
+#
+# yay -S starship
+# # copy configuration file
+#
+# yay -S tmux python-libtmux
+# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# # copy configuration file
+#
+# yay -S nvim
+# # copy configuration file
+#
+#
+# #
+# # Desktop application
+# #
+#
+# yay -S librewolf-bin spotify telegram-desktop
