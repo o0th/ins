@@ -28,6 +28,17 @@ backup_file() {
 	fi
 }
 
+backup_dir() {
+  if [ -d "${1}" ] && [ ! -L "${1}" ]; then
+    mkdir -p "${PWD}/backups/$(dirname ${1})"
+    mv "${1}" "${PWD}/backups/$(dirname ${1})/$(basename ${1}).$(date +%s)"
+  fi
+
+  if [ -d "${1}" ] && [ -L "${1}" ]; then
+    unlink "${1}"
+  fi
+}
+
 sudo_backup_file() {
 	if [ -f "${1}" ] && [ ! -L "${1}" ]; then
 		mkdir -p "${PWD}/backups/$(dirname ${1})"
@@ -54,6 +65,10 @@ create_dir "${HOME}/.config/tofi"
 backup_file "${HOME}/.config/tofi/config"
 ln -s "${PWD}/home/${USER}/.config/tofi/config" "${HOME}/.config/tofi/config"
 
+#
+# Terminal
+#
+
 install "kitty"
 create_dir "${HOME}/.config/kitty"
 backup_file "${HOME}/.config/kitty/kitty.conf"
@@ -61,15 +76,24 @@ backup_file "${HOME}/.config/kitty/dracula.conf"
 ln -s "${PWD}/home/${USER}/.config/kitty/kitty.conf" "${HOME}/.config/kitty/kitty.conf"
 ln -s "${PWD}/home/${USER}/.config/kitty/dracula.conf" "${HOME}/.config/kitty/dracula.conf"
 
+install "nvim"
+backup_dir "${HOME}/.config/nvim"
+ln -s "${PWD}/home/${USER}/.config/nvim" "${HOME}/.config/nvim"
+
+#
+# Desktop application
+#
+
+install "librewolf-bin"
+install "spotify"
+install "telegram-desktop"
+install "steam"
+
 # yay -S hyprland
 # # ~/.config/hypr/hyprland.conf
 #
 # yay -S hyprpaper
 # # ~/.config/tofi/config
-#
-# yay -S tofi
-# # ~/.config/tofi/config
-#
 #
 
 #
@@ -91,10 +115,3 @@ ln -s "${PWD}/home/${USER}/.config/kitty/dracula.conf" "${HOME}/.config/kitty/dr
 #
 # yay -S nvim
 # # copy configuration file
-#
-#
-# #
-# # Desktop application
-# #
-#
-# yay -S librewolf-bin spotify telegram-desktop
