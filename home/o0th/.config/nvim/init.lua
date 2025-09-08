@@ -21,30 +21,29 @@ vim.keymap.set("v", "<", "<gv", { noremap = true })
 vim.keymap.set("v", ">", ">gv", { noremap = true })
 
 -- Add visual padding between tabline and editor
-vim.opt.cmdheight = 0  -- Hide command line when not in use
+vim.opt.cmdheight = 1
 
 -- Create a custom winbar with padding that matches editor background
 local function set_winbar_colors()
   local normal_bg = vim.api.nvim_get_hl(0, { name = 'Normal' }).bg
   vim.api.nvim_set_hl(0, 'WinBar', { bg = normal_bg })
-  vim.api.nvim_set_hl(0, 'WinBarNC', { bg = normal_bg })  -- Non-current window winbar
+  vim.api.nvim_set_hl(0, 'WinBarNC', { bg = normal_bg }) -- Non-current window winbar
 end
 
-vim.api.nvim_create_autocmd({"VimEnter", "ColorScheme"}, {
+vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
   callback = function()
     set_winbar_colors()
   end,
 })
 
-vim.api.nvim_create_autocmd({"BufEnter"}, {
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
   callback = function()
     -- Only apply to normal file buffers, avoid telescope and other floating windows
     if vim.bo.buftype == "" and vim.bo.filetype ~= "TelescopePrompt" then
-      vim.wo.winbar = " "  -- Empty space as padding
+      vim.wo.winbar = " " -- Empty space as padding
       set_winbar_colors()
     else
-      vim.wo.winbar = nil  -- Clear winbar for special buffers
+      vim.wo.winbar = nil -- Clear winbar for special buffers
     end
   end,
 })
-
