@@ -61,20 +61,18 @@ sudo_backup_file "/etc/greetd/config.toml"
 sudo ln -s ${PWD}/etc/greetd/config.toml /etc/greetd/config.toml
 
 install "tofi"
-create_dir "${HOME}/.config/tofi"
-backup_file "${HOME}/.config/tofi/config"
-ln -s "${PWD}/home/${USER}/.config/tofi/config" "${HOME}/.config/tofi/config"
+backup_dir "${HOME}/.config/tofi"
+ln -s "${PWD}/home/${USER}/.config/tofi" "${HOME}/.config/tofi"
+
+install "brightnessctl"
 
 #
 # Terminal
 #
 
 install "kitty"
-create_dir "${HOME}/.config/kitty"
-backup_file "${HOME}/.config/kitty/kitty.conf"
-backup_file "${HOME}/.config/kitty/dracula.conf"
-ln -s "${PWD}/home/${USER}/.config/kitty/kitty.conf" "${HOME}/.config/kitty/kitty.conf"
-ln -s "${PWD}/home/${USER}/.config/kitty/dracula.conf" "${HOME}/.config/kitty/dracula.conf"
+backup_dir "${HOME}/.config/kitty"
+ln -s "${PWD}/home/${USER}/.config/kitty" "${HOME}/.config/kitty"
 
 install "nvim"
 backup_dir "${HOME}/.config/nvim"
@@ -84,10 +82,11 @@ ln -s "${PWD}/home/${USER}/.config/nvim" "${HOME}/.config/nvim"
 # Desktop application
 #
 
-install "librewolf-bin"
-install "spotify"
-install "telegram-desktop"
 install "steam"
+install "spotify"
+install "librewolf-bin"
+install "telegram-desktop"
+install "vlc vlc-plugins-all"
 
 # yay -S hyprland
 # # ~/.config/hypr/hyprland.conf
