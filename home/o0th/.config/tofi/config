@@ -4,13 +4,13 @@
 horizontal = true
 
 # Height of bar
-height = 36
+height = 42
 
 # Padding
 padding-top = 5
 padding-bottom = 5
-padding-left = 10
-padding-right = 10
+padding-left = 12
+padding-right = 12
 
 # Font size
 font-size = 12
@@ -40,9 +40,8 @@ selection-match-color = #50FA7B
 
 # Border color
 border-width = 2
-border-color = #6272A4
-corner-radius = 18
+border-color = #FF79C6
+corner-radius = 21
 
 # Outline width
 outline-width = 0
-
