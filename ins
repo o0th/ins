@@ -5,7 +5,9 @@
 #
 
 install() {
-    yay -Q "${1}" &>/dev/null || yay -S "${1}"
+  for pkg in $1; do
+    yay -Q "${pkg}" &>/dev/null || yay -S "${pkg}"
+  done
 }
 
 create_dir() {
@@ -64,9 +66,14 @@ install "tofi"
 backup_dir "${HOME}/.config/tofi"
 ln -s "${PWD}/home/${USER}/.config/tofi" "${HOME}/.config/tofi"
 
+install "hyprland"
+install "hypridle"
+backup_dir "${HOME}/.config/hypr"
+ln -s "${PWD}/home/${USER}/.config/hypr" "${HOME}/.config/hypr"
+
 install "wl-gammarelay-rs"
 install "otf-hasklig-nerd"
-install "noto-sans-emoji"
+install "noto-fonts-emoji"
 
 #
 # Terminal
