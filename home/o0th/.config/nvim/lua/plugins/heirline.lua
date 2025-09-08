@@ -44,8 +44,9 @@ return {
       }
     })
 
-    vim.keymap.set("n", "<s-l>", "<cmd>bnext<cr>", {})
-    vim.keymap.set("n", "<s-h>", "<cmd>bprev<cr>", {})
+    vim.keymap.set("n", "<s-l>", function() require("heirline-components.buffer").nav(1) end, {})
+    vim.keymap.set("n", "<s-h>", function() require("heirline-components.buffer").nav(-1) end, {})
     vim.keymap.set("n", "<s-c>", "<cmd>bd<cr>", {})
+    vim.keymap.set("n", "<s-cc>", "<cmd>bd!<cr>", {})
   end,
 }

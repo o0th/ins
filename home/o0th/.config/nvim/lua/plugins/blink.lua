@@ -74,8 +74,12 @@ return {
     -- elsewhere in your config, without redefining it, via `opts_extend`
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
-      -- optionally disable cmdline completions
-      -- cmdline = {},
+    },
+
+    -- disable cmdline completions to use native vim completion
+    cmdline = {
+      keymap = { preset = 'inherit' },
+      completion = { menu = { auto_show = true } },
     },
 
     -- experimental signature help support

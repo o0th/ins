@@ -16,3 +16,5 @@ vim.wo.number = true
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true })
 vim.keymap.set("v", "y", '"+y', { noremap = true })
 vim.keymap.set("x", "p", [["_dP]], { noremap = true, silent = true })
+vim.keymap.set("v", "<", "<gv", { noremap = true })
+vim.keymap.set("v", ">", ">gv", { noremap = true })

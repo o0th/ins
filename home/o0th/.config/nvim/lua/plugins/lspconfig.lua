@@ -9,7 +9,15 @@ return {
   opts = {
     servers = {
       lua_ls = {},
-      gopls = {}
+      gopls = {},
+      ts_ls = {
+        filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' }
+      },
+      eslint = {
+        filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+      },
+      zls = {},
+      ansiblels = {},
     },
   },
   config = function(_, opts)
